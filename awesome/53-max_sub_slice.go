@@ -1,5 +1,7 @@
 package awesome
 
+import "math"
+
 //给你一个整数数组 nums ，请你找出一个具有最大和的连续子数组（子数组最少包含一个元素），返回其最大和。
 //
 //子数组 是数组中的一个连续部分。
@@ -14,9 +16,67 @@ package awesome
 
 func maxSubArray(nums []int) int {
 
-	got, _, _ := lMaxSubArray(nums)
+	if len(nums) == 0 {
+		return 0
+	}
 
-	return got
+	// dp初始化
+	dpStep := make([]int, len(nums), len(nums))
+	dpStep[0] = nums[0]
+
+	for i, n := range nums {
+		if i == 0 {
+			continue
+		}
+		dpStep[i] = int(math.Max(float64(dpStep[i-1] + n), float64(n)))
+	}
+
+	maxNum := dpStep[0]
+
+	for _ , v := range dpStep {
+		if maxNum < v {
+			maxNum = v
+		}
+
+	}
+	return maxNum
+}
+
+func maxSubArray2(nums []int) int {
+
+	if len(nums) == 0 {
+		return 0
+	}
+
+	maxSum := nums[0]
+	leftpos := 0
+
+	for ; ; {
+
+		if leftpos > len(nums)-1 {
+			break
+		}
+		rightpos := len(nums) - 1
+		tempSump := math.MinInt64
+		for ; rightpos >= leftpos; {
+			tempSum := 0
+			for _, n := range nums[leftpos : rightpos+1] {
+				tempSum = tempSum + n
+			}
+
+			if tempSump < tempSum {
+				tempSump = tempSum
+			}
+			rightpos--
+		}
+
+		if maxSum < tempSump {
+			maxSum = tempSump
+		}
+		leftpos++
+
+	}
+	return maxSum
 }
 
 // 递归
@@ -64,9 +124,6 @@ func lMaxSubArray(nums []int) (int, int, int) {
 	if tVal < 0 && subMaxVal > 0 {
 		return subMaxVal, start + 1, end + 1
 	}
-
-
-
 
 	// 不能够直接衔接上, 遍历找答案
 
