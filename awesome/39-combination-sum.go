@@ -23,12 +23,19 @@ func combinationSum(candidates []int, target int) [][]int {
 // 方便递归回调
 func reCombinationSum(candidates []int, target int, steps [][][]int) [][]int {
 
-	val := steps[target]
-	// 命中缓存
-	if val != nil {
-		return val
-	}
-	for _, c := range candidates {
+	//val := steps[target]
+	//// 命中缓存
+	//if val != nil {
+	//	copyVal := make([][]int, len(val), len(val))
+	//	for k, v := range val {
+	//		copyVal[k] = make([]int, len(v), len(v))
+	//		copy(copyVal[k], v)
+	//	}
+	//	return copyVal
+	//}
+
+	result := [][]int{}
+	for i, c := range candidates {
 
 		// 不能使用
 		rest := target - c
@@ -40,30 +47,40 @@ func reCombinationSum(candidates []int, target int, steps [][][]int) [][]int {
 			//if val == nil { //还没初始化
 			//	steps[target] = make([][]int, 0, 0)
 			//}
-			steps[target] = append(steps[target], []int{c})
+			result = append(result, []int{c})
+			//steps[target] = addSet(target, steps[target], []int{c})
+			//steps[target] = append(steps[target], []int{c})
 			continue
 		}
-		sets := reCombinationSum(candidates, rest, steps)
+		sets := reCombinationSum(candidates[i:], rest, steps)
 		// 填充组合
 		for _, set := range sets {
-			steps[target] = append(steps[target], append(set, c))
+			//val := steps[target]
+			//if val == nil { //还没初始化
+			//	steps[target] = make([][]int, 0, 0)
+			//}
+			result = append(result, append(set, c))
+			//steps[target] = addSet(target, steps[target], append(set, c))
+			//steps[target] = append(steps[target], append(set, c))
 		}
+
 	}
-	return steps[target]
+	return result
 }
 
-func addSet(steps [][]int, e []int) {
+func addSet(target int, steps [][]int, e []int) [][]int {
 
-	have := false
-	for _, s := range steps {
-		if isEqual(s, e) {
-			have = true
-			break
-		}
-	}
-	if !have {
+	//have := false
+	//for _, s := range steps {
+	//	if isEqual(s, e) {
+	//		have = true
+	//		break
+	//	}
+	//}
+	//if !have {
 		steps = append(steps, e)
-	}
+	//}
+	return steps
 }
 
 func isEqual(e1 []int, e2 []int) bool {
