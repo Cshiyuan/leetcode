@@ -10,7 +10,7 @@ func addTwoNumbers2(l1 *ListNode, l2 *ListNode) *ListNode {
 	l1num := buildNum(l1)
 	l2num := buildNum(l2)
 
-	return buildTree(l1num + l2num)
+	return buildList(l1num + l2num)
 }
 
 func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
@@ -77,7 +77,7 @@ func buildNum(l *ListNode) int {
 	return num
 }
 
-func buildTree(num int) *ListNode {
+func buildList(num int) *ListNode {
 	//var num int
 	numStr := strconv.Itoa(num)
 

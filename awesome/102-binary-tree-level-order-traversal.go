@@ -20,12 +20,10 @@ func levelOrder(root *TreeNode) [][]int {
 	if root == nil {
 		return [][]int{}
 	}
-
-	var nextNodes[] *TreeNode
+	var nextNodes []*TreeNode
 	nextNodes = append(nextNodes, root)
 	var valss [][]int
-	for ;; {
-
+	for ; ; {
 		var vals []int
 		vals, nextNodes = ran_level_order(nextNodes)
 		valss = append(valss, vals)
@@ -36,6 +34,30 @@ func levelOrder(root *TreeNode) [][]int {
 	return valss
 }
 
+func levelOrderStd(root *TreeNode) [][]int {
+
+	ret := [][]int{}
+	if root == nil {
+		return ret
+	}
+	q := []*TreeNode{root}
+	for i := 0; len(q) > 0; i++ {
+		ret = append(ret, []int{})
+		p := []*TreeNode{}
+		for j := 0; j < len(q); j++ {
+			node := q[j]
+			ret[i] = append(ret[i], node.Val)
+			if node.Left != nil {
+				p = append(p, node.Left)
+			}
+			if node.Right != nil {
+				p = append(p, node.Right)
+			}
+		}
+		q = p
+	}
+	return ret
+}
 
 func ran_level_order(nodes []*TreeNode) ([]int, []*TreeNode) {
 	var nextNodes []*TreeNode
@@ -55,7 +77,7 @@ func ran_level_order(nodes []*TreeNode) ([]int, []*TreeNode) {
 	return vals, nextNodes
 }
 
-func level_order(root *TreeNode) ([]int,[][]int) {
+func level_order(root *TreeNode) ([]int, [][]int) {
 	if root == nil {
 		return []int{}, [][]int{}
 	}
