@@ -20,10 +20,27 @@ package awesome
 //著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 func hasCycle(head *ListNode) bool {
 
-	for ; ; {
-		head := head.Next
-		
+	fastPointer := head
+	slowPointer := head
+
+	haveCycle := false
+	for {
+		if fastPointer == nil || slowPointer == nil {
+			break
+		}
+		fastPointer = fastPointer.Next
+		if fastPointer != nil {
+			fastPointer = fastPointer.Next
+		}
+		slowPointer = slowPointer.Next
+		if fastPointer == nil || slowPointer == nil {
+			break
+		}
+		if fastPointer == slowPointer {
+			haveCycle = true
+			break
+		}
 	}
 
-	return false
+	return haveCycle
 }
