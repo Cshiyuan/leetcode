@@ -38,8 +38,7 @@ func maxProfit(prices []int) int {
 
 	minLeftPrice := math.MaxInt64
 	//maxRightPrice := math.MinInt64
-
-
+	// 滑动窗口
 	for ; tempLeftPos < len(prices); tempLeftPos ++ {
 
 		if prices[tempLeftPos] < minLeftPrice {
