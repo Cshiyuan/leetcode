@@ -50,18 +50,58 @@ func longestPalindrome(s string) string {
 			}
 		}
 	}
-
-	//	for j := 0; j < len(s); j++ {
-	//		if i == j {
-	//			continue
-	//		}
-	//		ispalindroma := false
-	//		if s[i] == s[j] {
-	//			ispalindroma = true
-	//		}
-	//		dpSteps[i][j] = ispalindroma && dpSteps[i][j-1]
-	//	}
-	//}
-
 	return s[maxI : maxJ+1]
+}
+
+
+// 中心扩展
+func longestPalindrome_V2(s string) string {
+
+	center := 0
+
+	maxleft := 0
+	maxright := 0
+
+	checkMax := func(a, b int) {
+		if b - a > maxright - maxleft {
+			maxright = b
+			maxleft = a
+		}
+	}
+
+	centerRangeCheck := func(left, right int) {
+
+		for {
+			if left < 0 || right >= len(s) {
+				break
+			}
+			if s[left] != s[right] {
+				break
+			}
+			checkMax(left, right)
+			left --
+			right ++
+		}
+	}
+
+
+	for ;center < len(s) * 2 - 1; center++ {
+
+
+		//|0|1|2|3|4|5|
+		var left, right int
+		if center % 2 == 0 {
+			oriCenter := center / 2
+			left = oriCenter
+			right = oriCenter
+		} else {
+			left = center / 2
+			right = center / 2 + 1
+		}
+		centerRangeCheck(left, right)
+
+	}
+
+	return s[maxleft:maxright + 1]
+
 }

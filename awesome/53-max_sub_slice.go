@@ -28,16 +28,14 @@ func maxSubArray(nums []int) int {
 		if i == 0 {
 			continue
 		}
-		dpStep[i] = int(math.Max(float64(dpStep[i-1] + n), float64(n)))
+		dpStep[i] = max(dpStep[i-1] + n, n)
 	}
 
 	maxNum := dpStep[0]
-
 	for _ , v := range dpStep {
 		if maxNum < v {
 			maxNum = v
 		}
-
 	}
 	return maxNum
 }

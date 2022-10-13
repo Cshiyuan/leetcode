@@ -1,4 +1,4 @@
-package _155_min_stack
+package awesome
 
 import "math"
 
@@ -22,48 +22,48 @@ type MinStack struct {
 	minPos int   //记录最小的位置
 }
 
-func Constructor() MinStack {
+func Constructor1() MinStack {
 	return MinStack{
 		slice:  []int{},
 		minPos: -1,
 	}
 }
 
-func (this *MinStack) Push(val int) {
+func (s *MinStack) Push(val int) {
 
 	// 压栈
-	this.slice = append(this.slice, val)
-	if this.minPos == -1 {
-		this.minPos = 0
+	s.slice = append(s.slice, val)
+	if s.minPos == -1 {
+		s.minPos = 0
 		return
 	}
 	// 说明最小的位置
-	if this.slice[this.minPos] > val {
-		this.minPos = len(this.slice) - 1
+	if s.slice[s.minPos] > val {
+		s.minPos = len(s.slice) - 1
 	}
 }
 
 // 出栈
-func (this *MinStack) Pop() {
-	oPos := len(this.slice)-1
-	this.slice = this.slice[:len(this.slice)-1]
-	if this.minPos ==  oPos{
+func (s *MinStack) Pop() {
+	oPos := len(s.slice)-1
+	s.slice = s.slice[:len(s.slice)-1]
+	if s.minPos ==  oPos{
 		minVal := math.MaxInt64
-		for pos, val := range this.slice {
+		for pos, val := range s.slice {
 			if val < minVal {
 				minVal = val
-				this.minPos = pos
+				s.minPos = pos
 			}
 		}
 	}
 }
 
-func (this *MinStack) Top() int {
-	return this.slice[len(this.slice)-1]
+func (s *MinStack) Top() int {
+	return s.slice[len(s.slice)-1]
 }
 
-func (this *MinStack) GetMin() int {
-	return this.slice[this.minPos]
+func (s *MinStack) GetMin() int {
+	return s.slice[s.minPos]
 }
 
 /**

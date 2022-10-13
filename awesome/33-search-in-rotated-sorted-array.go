@@ -1,14 +1,5 @@
 package awesome
 
-func search2(nums []int, target int) int {
-
-	for i, v := range nums {
-		if v == target {
-			return i
-		}
-	}
-	return -1
-}
 
 // 尝试log(N)
 func search(nums []int, target int) int {

@@ -34,37 +34,36 @@ func Constructor(capacity int) LRUCache {
 	}
 }
 
-// 删除尾巴
-func (this *LRUCache) DeleteTail() {
+// DeleteTail 删除尾巴
+func (c *LRUCache) DeleteTail() {
 	// 驱逐双向链表最后的一个
-	if this.tail != nil {
-		delete(this.values, this.tail.key)
+	if c.tail != nil {
+		delete(c.values, c.tail.key)
 	}
-
 	// 切换尾巴
-	this.tail = this.tail.pre
-	if this.tail != nil {
-		this.tail.next = nil
+	c.tail = c.tail.pre
+	if c.tail != nil {
+		c.tail.next = nil
 	}
 }
 
-// 删除尾巴
-func (this *LRUCache) AddToHead(node *Node) {
+// AddToHead 删除尾巴
+func (c *LRUCache) AddToHead(node *Node) {
 	// 拼接到开头
-	tempHead := this.head
+	tempHead := c.head
 
-	if this.head == node {
+	if c.head == node {
 		return
 	}
 
 	// 如果尾巴没有赋值，则直接赋值
-	if this.tail == nil {
-		this.tail = node
+	if c.tail == nil {
+		c.tail = node
 	}
 
 	// 如果移动的是尾巴，则调整尾巴
 	if node.next == nil && node.pre != nil{
-		this.tail = node.pre
+		c.tail = node.pre
 	}
 
 
@@ -77,7 +76,7 @@ func (this *LRUCache) AddToHead(node *Node) {
 	}
 
 	// 放置到开头
-	this.head = node
+	c.head = node
 	node.pre = nil
 	node.next = tempHead
 
@@ -88,40 +87,40 @@ func (this *LRUCache) AddToHead(node *Node) {
 }
 
 
-func (this *LRUCache) Get(key int) int {
-	node, ok := this.values[key]
+func (c *LRUCache) Get(key int) int {
+	node, ok := c.values[key]
 	if !ok {
 		return -1
 	}
 
 	// 拼接到开头
-	this.AddToHead(node)
+	c.AddToHead(node)
 
 	return node.val
 }
 
 
-func (this *LRUCache) Put(key int, value int)  {
-	node, ok := this.values[key]
+func (c *LRUCache) Put(key int, value int)  {
+	node, ok := c.values[key]
 	if ok {
 		node.val = value  //值变更
-		this.AddToHead(node)
+		c.AddToHead(node)
 	} else {
 
 		newNode := &Node{
 			key:  key,
 			val:  value,
 		}
-		this.values[key] = newNode
-		this.AddToHead(newNode)
+		c.values[key] = newNode
+		c.AddToHead(newNode)
 
-		this.len = this.len + 1
+		c.len = c.len + 1
 	}
 
 	// 大于容量
-	if this.len > this.capacity {
-		this.DeleteTail()
-		this.len = this.len - 1
+	if c.len > c.capacity {
+		c.DeleteTail()
+		c.len = c.len - 1
 	}
 }
 

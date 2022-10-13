@@ -1,4 +1,4 @@
-package _155_min_stack
+package awesome
 
 import (
 	"fmt"
@@ -7,7 +7,7 @@ import (
 
 func TestConstructor(t *testing.T) {
 
-	got := Constructor()
+	got := Constructor1()
 	got.Push(-2)
 	got.Push(0)
 	got.Push(-3)

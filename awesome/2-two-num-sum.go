@@ -1,17 +1,6 @@
 package awesome
 
-import (
-	"math"
-	"strconv"
-)
 
-func addTwoNumbers2(l1 *ListNode, l2 *ListNode) *ListNode {
-
-	l1num := buildNum(l1)
-	l2num := buildNum(l2)
-
-	return buildList(l1num + l2num)
-}
 
 func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
 
@@ -59,42 +48,4 @@ func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
 		count++
 	}
 	return resultRoot
-}
-
-func buildNum(l *ListNode) int {
-
-	var num int
-	var count int
-	for ; ; {
-		if l == nil {
-			break
-		}
-
-		num = num + l.Val*int(math.Pow10(count))
-		l = l.Next
-		count++
-	}
-	return num
-}
-
-func buildList(num int) *ListNode {
-	//var num int
-	numStr := strconv.Itoa(num)
-
-	root := &ListNode{
-		Val:  0,
-		Next: nil,
-	}
-	curNode := root
-	for i := len(numStr) - 1; i >= 0; i-- {
-
-		num, _ := strconv.Atoi(string(numStr[i]))
-		curNode.Val = num
-		if i != 0 {
-			curNode.Next = &ListNode{}
-			curNode = curNode.Next
-		}
-
-	}
-	return root
 }

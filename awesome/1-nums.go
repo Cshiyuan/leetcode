@@ -27,9 +27,7 @@ func twoSum2(nums []int, target int) []int {
 
 func twoSum(nums []int, target int) []int {
 
-
 	valSet := make(map[int]int, 0)
-
 	rTarget := target
 	for i, num := range nums {
 		// 记录需要的数

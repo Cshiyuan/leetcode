@@ -97,6 +97,9 @@ func threeSum(nums []int) [][]int {
 
 	return repeatRemove(resultList)
 }
+
+
+// 先排序了
 func threeSum2(nums []int) [][]int {
 	n := len(nums)
 	sort.Ints(nums)
@@ -110,7 +113,7 @@ func threeSum2(nums []int) [][]int {
 		}
 		// c 对应的指针初始指向数组的最右端
 		third := n - 1
-		target := -1 * nums[first]
+		target := - nums[first]
 		// 枚举 b
 		for second := first + 1; second < n; second++ {
 			// 需要和上一次枚举的数不相同
