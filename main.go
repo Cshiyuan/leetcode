@@ -2,8 +2,6 @@ package main
 
 import (
 	"fmt"
-
-	"awesomeProject/awesome"
 )
 
 
@@ -16,25 +14,15 @@ import (
 //预期：
 //[null,null,null,2,1,null,1,-1,3]
 
+func update(s []int) {
+	s[1] = 10
+	fmt.Printf("%p\n", s)
+}
+
 func main() {
-	obj := awesome.Constructor(2);
-
-	obj.Put(2,1);
-	obj.Put(3,2);
-
-
-	fmt.Sprintf("%+v", obj)
-	val := obj.Get(3);
-	val = obj.Get(2);
-
-	obj.Put(4,3);
-
-	fmt.Sprintf("%+v", obj)
-
-	val = obj.Get(2);
-	val = obj.Get(3);
-	val = obj.Get(4);
-
-	fmt.Sprintf("%+v", val)
-	fmt.Sprintf("%+v", obj)
+	a := []int{0, 1, 2, 3, 4}
+	fmt.Println(a)
+	fmt.Printf("%p\n", a)
+	update(a)
+	fmt.Println(a)
 }

@@ -1,6 +1,9 @@
 package awesome
 
-import "fmt"
+import (
+	"bytes"
+	"fmt"
+)
 
 func convert(s string, numRows int) string {
 	if numRows <= 1 {
@@ -42,4 +45,26 @@ func convert(s string, numRows int) string {
 		}
 	}
 	return str
+}
+
+// 压缩矩阵
+func convert2(s string, numRows int) string {
+	r := numRows
+	// 特殊情况判断
+	if r == 1 || r >= len(s) {
+		return s
+	}
+	// 压缩矩阵
+	mat := make([][]byte, r)
+	t, x := r*2 -2 , 0
+	for i, ch := range s {
+
+		mat[x] = append(mat[x], byte(ch))
+		if i%t < r - 1 {
+			x++
+		} else {
+			x--
+		}
+	}
+	return string(bytes.Join(mat, nil))
 }

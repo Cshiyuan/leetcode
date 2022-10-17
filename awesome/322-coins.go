@@ -1,6 +1,7 @@
 package awesome
 
 import (
+	"math"
 	"sort"
 	"strconv"
 )
@@ -68,6 +69,43 @@ func coinChange(coins []int, amount int) int {
 		dpSteps[n] = minValue
 	}
 	return dpSteps[amount]
+}
+
+
+
+// 更加规范的动态规划
+func coinChange3(coins []int, amount int) int {
+
+	if amount == 0 {
+		return 0
+	}
+	dpStep := make([]int, amount + 1, amount + 1)
+	for i := range dpStep {
+		dpStep[i] = math.MaxInt32
+	}
+
+	for j := range coins {
+		if coins[j] <= amount {
+			dpStep[coins[j]] = 1
+		}
+	}
+
+	for  i := range dpStep {
+
+		for j := range coins {
+			if i - coins[j] < 0 {
+				continue
+			}
+			if dpStep[i -coins[j]] != -1 {
+				dpStep[i] = min(dpStep[i - coins[j]] + 1, dpStep[i])
+			}
+		}
+	}
+
+	if dpStep[amount] == math.MaxInt32 {
+		return -1
+	}
+	return dpStep[amount]
 }
 
 func coinChange2(coins []int, amount int) int {
